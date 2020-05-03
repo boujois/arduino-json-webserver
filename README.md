@@ -16,15 +16,15 @@ Make up a MAC address if using more than one arduino on the same network:
 
 Change the IP Address to one in your local network:
 
-    IPAddress ip(192,168,86,183);
+    IPAddress ip(192,168,86,247);
 
 Upload the Sketch to your board.
 
-You can now access either through a browser at: [http://192.168.86.183](http://192.168.86.183) (this IP will be different if you changed it per the code above).  
+You can now access either through a browser at: [http://192.168.86.247](http://192.168.86.247) (this IP will be different if you changed it per the code above).  
 
 Or access through terminal/powershell:
 
-    curl http://192.168.86.183
+    curl http://192.168.86.247
     {
       "software_version": "1.1.0",
       "sensor_readings": {
@@ -38,3 +38,18 @@ Or access through terminal/powershell:
       "uptime_seconds": 66,
       "uptime_human": "0 Days 0 Hours 1 Minutes 6 Seconds"
     }
+
+
+## Notes
+
+If using Google Wifi (Mesh), wired devices with fixed IPs may not show up in the Devices tab (required if port forwarding). Instead get an IP using DHCP, and reserve it.
+Make this change (comment out the first line, uncomment the 2nd):
+
+    //Ethernet.begin(mac, ip);
+    Ethernet.begin(mac); // use this line if you want DHCP assigned IP (uncomment and commment out the above line)
+
+Then after IP has been established and reserved, switch back the change to the above and update the line:
+
+    IPAddress ip(192,168,86,247);
+
+To whatever IP was given through DHCP

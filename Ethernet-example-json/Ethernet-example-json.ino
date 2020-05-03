@@ -9,7 +9,7 @@ long currentmillis=0;
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:
 byte mac[] = { 0xDE, 0xAD, 0xBD, 0xEF, 0xFE, 0xED };
-IPAddress ip(192,168,86,183);
+IPAddress ip(192,168,86,247);
 EthernetServer server(80);
 
 void setup() {
@@ -18,6 +18,7 @@ void setup() {
   Serial.begin(9600);
   // start the Ethernet connection and the server:
   Ethernet.begin(mac, ip);
+  //Ethernet.begin(mac); // use this line if you want DHCP assigned IP (uncomment and commment out the above line)
   server.begin();
   Serial.print("server is at ");
   Serial.println(Ethernet.localIP());
