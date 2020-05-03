@@ -2,6 +2,8 @@
 #include <Ethernet.h>
 #include <ArduinoJson.h> // Library AduinoJson version 5 (not 6)
 
+String version  = "1.0.2";
+
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:
 byte mac[] = { 0xDE, 0xAD, 0xBD, 0xEF, 0xFE, 0xED };
@@ -38,7 +40,7 @@ void loop() {
           client.println();
           DynamicJsonBuffer jsonBuffer;
           JsonObject& object = jsonBuffer.createObject();
-          object["software_version"] = "1.0.1";
+          object["software_version"] = version;
           object["sensor_readings"]= jsonBuffer.createObject(); // create a nested object for the readings
           for (int analogChannel = 0; analogChannel < 6; analogChannel++) {
             int sensorReading = analogRead(analogChannel);
