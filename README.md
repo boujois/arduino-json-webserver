@@ -42,7 +42,8 @@ Or access through terminal/powershell:
 
 ## Notes
 
-If using Google Wifi (Mesh), wired devices with fixed IPs may not show up in the Devices tab (required if port forwarding). Instead get an IP using DHCP, and reserve it.
+If using Google Wifi (Mesh), wired devices with fixed IPs may not show up in the Devices tab (required if port forwarding). Instead get an IP using DHCP, and reserve it. Your Arduino can be identified by the MAC address, or by looking for `WizzNet`.  
+
 Make this change (comment out the first line, uncomment the 2nd):
 
     //Ethernet.begin(mac, ip);
