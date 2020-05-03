@@ -2,7 +2,9 @@
 #include <Ethernet.h>
 #include <ArduinoJson.h> // Library AduinoJson version 5 (not 6)
 
-String version  = "1.0.2";
+String version  = "1.1.0";
+
+long currentmillis=0;
 
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:
@@ -11,6 +13,7 @@ IPAddress ip(192,168,86,183);
 EthernetServer server(80);
 
 void setup() {
+  delay(1000); // Don't continue if power is being cycled (i.e. during sketch upload)
   // Open serial communications and wait for port to open:
   Serial.begin(9600);
   // start the Ethernet connection and the server:
@@ -18,8 +21,8 @@ void setup() {
   server.begin();
   Serial.print("server is at ");
   Serial.println(Ethernet.localIP());
+  
 }
-
 
 void loop() {
   // listen for incoming clients
@@ -46,10 +49,23 @@ void loop() {
             int sensorReading = analogRead(analogChannel);
             object["sensor_readings"][String(analogChannel)]=sensorReading;
           }
-          
+          currentmillis=millis();
+          long secs = currentmillis/1000;
+          object["uptime_seconds"]=secs;
+          long days=0;
+          long hours=0;
+          long mins=0;
+          mins=secs/60; //convert seconds to minutes
+          hours=mins/60; //convert minutes to hours
+          days=hours/24; //convert hours to days
+          secs=secs-(mins*60); //subtract the coverted seconds to minutes in order to display 59 secs max
+          mins=mins-(hours*60); //subtract the coverted minutes to hours in order to display 59 minutes max
+          hours=hours-(days*24); //subtract the coverted hours to days in order to display 23 hours max
+          object["uptime_human"]=String(days) + " Days " + String(hours) + " Hours " + String(mins) + " Minutes " + String(secs) + " Seconds";
           object.prettyPrintTo(Serial);
           object.prettyPrintTo(client);
           client.println();
+          
           break;
         }
         if (c == '\n') {
@@ -63,7 +79,7 @@ void loop() {
       }
     }
     // give the web browser time to receive the data
-    delay(1);
+    delay(100);
     // close the connection:
     client.stop();
     Serial.println("client disonnected");

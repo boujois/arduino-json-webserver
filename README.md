@@ -24,15 +24,17 @@ You can now access either through a browser at: [http://192.168.86.183](http://1
 
 Or access through terminal/powershell:
 
-    $ curl http://192.168.86.183
+    curl http://192.168.86.183
     {
-      "software_version": "1.0.1",
+      "software_version": "1.1.0",
       "sensor_readings": {
-        "0": 496,
-        "1": 441,
-        "2": 443,
-        "3": 468,
-        "4": 394,
-        "5": 357
-      }
+        "0": 315,
+        "1": 322,
+        "2": 363,
+        "3": 411,
+        "4": 333,
+        "5": 298
+      },
+      "uptime_seconds": 66,
+      "uptime_human": "0 Days 0 Hours 1 Minutes 6 Seconds"
     }
